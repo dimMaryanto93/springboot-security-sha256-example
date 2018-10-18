@@ -2,6 +2,8 @@
 
 Password encode with algoritm SHA-256 encoder and custome salt each users
 
-Example: 
-    username: `admin`
-    password: `password`
+Example:   
+- username: `admin` password: `password` -> login success
+- username: `user_lock` password: `password` -> user is locked
+- username: `user_expired` password: `password` -> user is expired
+- username: `user_blocked` password: `password` -> user is blocked
