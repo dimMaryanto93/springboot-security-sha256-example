@@ -4,6 +4,8 @@ create table user_detail (
   encript_password  varchar(255) not null,
   hash_id           varchar(100),
   enabled           boolean      not null default false,
+  blocked           boolean      not null default false,
+  expired           boolean      not null default false,
   last_login        datetime,
   created_by        varchar(64)  not null,
   created_date      datetime     not null default now(),

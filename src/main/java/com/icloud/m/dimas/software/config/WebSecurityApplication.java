@@ -3,6 +3,7 @@ package com.icloud.m.dimas.software.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,6 +23,13 @@ public class WebSecurityApplication extends WebSecurityConfigurerAdapter {
         return encoder;
     }
 
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authProvider);
@@ -34,7 +42,7 @@ public class WebSecurityApplication extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .anyRequest().authenticated()
-                .and().formLogin().permitAll()
+                .and().formLogin().successForwardUrl("/home").permitAll()
                 .and().logout().permitAll();
     }
 }
