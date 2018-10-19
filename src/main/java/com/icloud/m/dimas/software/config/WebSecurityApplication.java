@@ -18,12 +18,6 @@ public class WebSecurityApplication extends WebSecurityConfigurerAdapter {
     private AuthJdbcProvider authProvider;
 
     @Bean
-    public ShaPasswordEncoder passwordEncoder() {
-        ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
-        return encoder;
-    }
-
-    @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();

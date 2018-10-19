@@ -1,12 +1,12 @@
 package com.icloud.m.dimas.software.config;
 
 import com.icloud.m.dimas.software.entity.User;
+import com.icloud.m.dimas.software.utils.CommonsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.authentication.*;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -22,7 +22,7 @@ public class AuthJdbcProvider implements AuthenticationProvider {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
-    private ShaPasswordEncoder passwordEncoder;
+    private CommonsUtils utils;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -45,7 +45,7 @@ public class AuthJdbcProvider implements AuthenticationProvider {
                 }
             }, username);
 
-            boolean isValid = passwordEncoder.isPasswordValid(user.getPassword(), password, user.getSalt());
+            boolean isValid = utils.isPasswordValid(user.getPassword(), password, user.getSalt());
             if (!isValid)
                 throw new BadCredentialsException("Username atau password salah!");
 
